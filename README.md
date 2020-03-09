@@ -1,52 +1,72 @@
 CAS Overlay Template
 ============================
 
-Generic CAS maven war overlay to exercise the latest versions of CAS. This overlay could be freely used as a starting template for local CAS maven war overlays. The CAS services management overlay is available [here](https://github.com/Jasig/cas-services-management-overlay).
+Generic CAS WAR overlay to exercise the latest versions of CAS. This overlay could be freely used as a starting template for local CAS war overlays. The CAS services management overlay is available [here](https://github.com/apereo/cas-services-management-overlay).
 
 # Versions
+
 ```xml
-<cas.version>4.2.x</cas.version>
+<cas.version>5.0.x</cas.version>
 ```
 
 # Requirements
-* JDK 1.7+
+* JDK 1.8+
 
 # Configuration
 
-The `etc` directory contains the configuration files that need to be copied to `/etc/cas`.
-
-Current files are:
-
-* `cas.properties`
-* `log4j2.xml`
+The `etc` directory contains the configuration files and directories that need to be copied to `/etc/cas/config`.
 
 # Build
 
+To see what commands are available to the build script, run:
+
 ```bash
-mvnw clean package
+./build.sh help
 ```
 
-or
+To package the final web application, run:
 
 ```bash
-mvnw.bat clean package
+./build.sh package
+```
+
+To update `SNAPSHOT` versions run:
+
+```bash
+./build.sh package -U
 ```
 
 # Deployment
 
-## Embedded Jetty
+- Create a keystore file `thekeystore` under `/etc/cas`. Use the password `changeit` for both the keystore and the key/certificate entries.
+- Ensure the keystore is loaded up with keys and certificates of the server.
 
-* Create a Java keystore at `/etc/cas/jetty/thekeystore` with the password `changeit`.
-* Import your CAS server certificate inside this keystore.
-
-```bash
-mvnw jetty:run-forked
-```
-
-CAS will be available at:
+On a successful deployment via the following methods, CAS will be available at:
 
 * `http://cas.server.name:8080/cas`
 * `https://cas.server.name:8443/cas`
 
+## Executable WAR
+
+Run the CAS web application as an executable WAR.
+
+```bash
+./build.sh run
+```
+
+## Spring Boot
+
+Run the CAS web application as an executable WAR via Spring Boot. This is most useful during development and testing.
+
+```bash
+./build.sh bootrun
+```
+
+### Warning!
+
+Be careful with this method of deployment. `bootRun` is not designed to work with already executable WAR artifacts such that CAS server web application. YMMV. Today, uses of this mode ONLY work when there is **NO OTHER** dependency added to the build script and the `cas-server-webapp` is the only present module. See [this issue](https://github.com/apereo/cas/issues/2334) and [this issue](https://github.com/spring-projects/spring-boot/issues/8320) for more info.
+
 ## External
-Deploy resultant `target/cas.war` to a Servlet container of choice.
+
+Deploy resultant `target/cas.war`  to a servlet container of choice.
+
