@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title th:text="#{screen.success.header}">Generic Success View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+</head>
+
+<body>
+<main role="main" class="container mt-3 mb-3">
+    <div layout:fragment="content" class="row">
+        <div class="alert alert-success">
+            <h1 id="error" class="text-center">Sorry, an error has occurred.</h1>
+
+            <p id="excuse">
+                <a href="https://acs.acentic.com/CloudServices">CloudServices</a>
+            </p>
+
+
+        </div>
+
+       
+    </div>
+
+    
+</main>
+</body>
+</html>

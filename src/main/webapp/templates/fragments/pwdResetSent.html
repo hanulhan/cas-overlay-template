@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Pwd Reset Sent Fragment</title>
+    
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/custom.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/cas.css}" th:remove="tag" />
+</head>
+<body>
+<div th:fragment="pwdResetSent" class="container login_wrapper">
+
+    <section class="login_content animated" role="complementary">
+
+        <h2 class="text-success" th:utext="#{screen.pm.reset.sent}">
+            Password Reset Instructions Sent Successfully.
+        </h2>
+
+        <p th:utext="#{screen.pm.reset.sentInstructions}">
+            You should shortly receive an email.
+        </p>
+
+    </section>
+
+</div>
+</body>
+</html>

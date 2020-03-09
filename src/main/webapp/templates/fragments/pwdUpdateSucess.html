@@ -1,0 +1,19 @@
+<div th:fragment="pwdUpdateSucess" class="container login_wrapper">
+    <section class="login_content animated" role="complementary">
+
+        <h2 class="text-success" th:utext="#{screen.pm.success.header}">Password Change Successful</h2>
+        <p><strong th:utext="#{screen.pm.success.message}">Your account password is successfully updated.</strong></p>
+        <br/>
+        
+        <form method="post" id="form" class="clearfix" th:action="@{/login}">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="proceed"/>
+
+            <button type="submit" class="btn btn-default" accesskey="l"tabindex="1" 
+                th:utext="#{screen.pm.success.button}">
+                Login
+            </button>
+        </form>
+
+    </section>
+</div>

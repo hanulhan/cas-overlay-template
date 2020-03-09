@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>Acentic Cloud Services</title>
+
+    <link th:replace="fragments/styles.html"/>
+</head>
+
+<body id="idBody" class="login">
+    <div class="footer_fixed">
+        <div th:replace="fragments/header :: header">
+            <a href="fragments/header.html">Header</a> fragment will go here
+        </div>
+
+        <div layout:fragment="content" id="content">
+            CAS content will go here
+        </div>
+
+        <div th:replace="fragments/footer :: footer">
+            <a href="fragments/footer.html">Footer</a> fragment will go here
+        </div>
+    </div>
+
+    <script th:replace="fragments/scripts"/>
+</body>
+</html>

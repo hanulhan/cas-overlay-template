@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Pwd Reset Username Fragment</title>
+    
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/custom.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/cas.css}" th:remove="tag" />
+</head>
+<body>
+<div th:fragment="pwdResetUsername" class="container login_wrapper">
+
+    <section class="login_content animated" role="complementary">
+
+        <span th:utext="#{screen.pm.reset.instructions}">
+            Please provide your username.
+        </span>
+
+        <form id="submitForm" method="post" htmlEscape="true">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="findAccount"/>
+
+            <input type="text" class="form-control" id="username" name="username"
+                th:attr="placeholder=#{screen.pm.reset.username}"
+                size="45" tabindex="1" required/>
+
+            <button type="submit" class="btn btn-default" accesskey="s" tabindex="2"
+                th:text="#{screen.pm.button.submit}">
+                    Submit
+            </button>
+
+            <div class="clearfix"></div>
+            <br/>
+            <a href="javascript:location.href = location.href;" th:text="#{screen.login.submit}">Login</a>
+        </form>
+    
+    </section>
+
+</div>
+</body>
+</html>

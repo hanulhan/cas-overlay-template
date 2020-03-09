@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Logout Fragment</title>
+    
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/custom.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/cas.css}" th:remove="tag" />
+</head>
+<body>
+<div th:fragment="logoutform" class="container login_wrapper">
+
+    <section class="login_content animated" role="complementary">
+
+        <h2 th:utext="#{screen.logout.pagetitle}">Logout successful</h2>
+        
+        <p>
+            <span th:utext="#{screen.logout.success}" th:remove="tag">
+                You have successfully logged out of Acentic Cloud Services.
+            </span>
+            <br/>
+            <a th:utext="#{screen.logout.login}" th:href="@{{service}(service=${param.service})}">
+                You may log in again.
+            </a>
+        </p>
+
+        <p th:utext="#{screen.logout.security}">For security reasons, exit your web browser.</p>
+
+    </section>
+
+</div>
+</body>
+</html>
