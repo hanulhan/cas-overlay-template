@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title th:text="#{screen.logout.pagetitle}">CAS Logout</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+</head>
+
+<body>
+    <main layout:fragment="content" role="main">
+        <div class="col-md-4 col-md-offset-4 col-xs-12 center">
+            <div th:replace="fragments/logoutform :: logoutform">
+                <a href="fragments/logoutform.html">Logout goes here</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

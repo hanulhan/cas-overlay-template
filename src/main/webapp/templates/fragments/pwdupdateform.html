@@ -1,0 +1,59 @@
+<div th:fragment="pwdupdateform" class="container login_wrapper">
+
+    <section class="login_content animated" role="complementary">
+
+        <h3 th:utext="${expiredPass} ? #{screen.expiredpass.heading} : #{screen.mustchangepass.heading}">
+            Change Password Heading
+        </h3>
+        <p th:unless="${expiredPass}" th:utext="#{screen.mustchangepass.message}">
+            Make sure that the strength of your password is strong enough.
+        </p>
+    
+        <form id="passwordManagementForm" th:if="${passwordManagementEnabled}" method="post" th:object="${password}">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+            <input type="hidden" name="_eventId" value="submit"/>
+            
+            <input class="form-control" th:attr="placeholder=#{screen.pm.enterpsw}" type="password" id="password" th:field="*{password}" required/>
+
+            <input class="form-control" th:attr="placeholder=#{screen.pm.confirmpsw}" type="password" id="confirmedPassword" th:field="*{confirmedPassword}" required/>
+
+            <span th:text="#{screen.pm.password.strength}">Strength:</span>
+            <div class="progress">
+                <div id="strengthProgressBar" class="progress-bar"></div>
+            </div>
+            
+            <span id="password-strength-warning"></span>
+            <span id="password-strength-suggestions"></span>
+
+            <div class="form-group" id="password-strength-notes">
+                <div id="password-policy-violation-msg" class="alert alert-danger" role="alert" style="display: none;">
+                    <span class="fas fa-exclamation-circle" aria-hidden="true"></span>&nbsp;
+                    <strong th:text="#{screen.pm.password.policyViolation}">
+                        Password does not match the password policy requirement.
+                    </strong>
+                </div>
+                <div id="password-confirm-mismatch-msg" class="alert alert-danger" role="alert" style="display: none;">
+                    <span class="fas fa-exclamation-circle" aria-hidden="true"></span>&nbsp;
+                    <strong th:text="#{screen.pm.password.confirmMismatch}">
+                        Passwords do not match.
+                    </strong>
+                </div>
+            </div>
+
+            <button class="btn btn-default" id="cancel"
+                type="button" accesskey="s"
+                onclick="location.href='@{/login}'"
+                th.text="#{screen.pm.button.cancel}">
+                    Cancel
+            </button>
+                &nbsp;
+            <button class="btn btn-default" id="submit"
+                type="submit" value="SUBMIT"
+                accesskey="s" disabled="true"
+                th.text="#{screen.pm.button.submit}">
+                    Submit
+            </button>
+        </form>
+
+    </section>
+</div>

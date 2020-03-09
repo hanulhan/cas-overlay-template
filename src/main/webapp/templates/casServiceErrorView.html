@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title th:text="#{screen.service.error.pagetitle}">Service Error View</title>
+    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+</head>
+
+<body>
+    <main layout:fragment="content" role="main">
+        <div class="col-md-4 col-md-offset-4 col-xs-12 center">
+            <h2 class="text-danger text-center" th:utext="#{screen.service.error.header}">
+                Service unavailable
+            </h2>
+            <p class="text-center" th:utext="#{screen.service.error.message}">
+                Not authorized to use CAS.
+            </p>
+        </div>
+    </main>
+</body>
+</html>

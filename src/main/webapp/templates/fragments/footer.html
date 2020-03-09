@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Footer Fragment</title>
+    
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/custom.min.css}" th:remove="tag" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/cas.css}" th:remove="tag" />
+</head>
+<body>
+    <footer th:fragment="footer" role="contentinfo">
+        <div class="row">
+            <div class="col-md-12 col-xs-12" role="contentinfo">
+                <div class="pull-right" th:utext="#{screen.login.imprint}">
+                    &copy; Cloud Services by Acentic | Imprint
+                </div>
+                <div class="clearfix"></div>
+            </div>  
+        </div>
+    </footer>
+</body>
+</html>

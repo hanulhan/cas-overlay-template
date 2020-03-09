@@ -1,46 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Specify the refresh internal in seconds. -->
-<Configuration monitorInterval="5" packages="org.apereo.cas.logging">
+<!-- Mein Log4j2 -->
+<Configuration status="debug" packages="org.apereo.cas.logging">
     <Properties>
         <!-- 
         Default log directory is the current directory but that can be overridden with -Dcas.log.dir=<logdir>
         Or you can change this property to a new default
         -->
-        <Property name="cas.log.dir" >.</Property>
+        <!--
+        <Property name="cas.log.dir" >../logs/</Property>
+        -->
         <!-- To see more CAS specific logging, adjust this property to info or debug or run server with -Dcas.log.leve=debug -->
+        <!--
         <Property name="cas.log.level" >warn</Property>
+        -->
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %p [%c] - &lt;%m&gt;%n"/>
         </Console>
-        <RollingFile name="file" fileName="${sys:cas.log.dir}/cas.log" append="true"
-                     filePattern="${sys:cas.log.dir}/cas-%d{yyyy-MM-dd-HH}-%i.log">
+
+
+        <RollingFile name="file" 
+                     fileName="@cas.log.dir@/cas.log" 
+                     append="true"
+                     filePattern="@cas.log.dir@/cas-%d{yyyy-MM-dd-HH}-%i.log.gz">
             <PatternLayout pattern="%d %p [%c] - &lt;%m&gt;%n"/>
             <Policies>
-                <OnStartupTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-                <TimeBasedTriggeringPolicy />
+                <CronTriggeringPolicy schedule="0 0 0 * * ?" />
             </Policies>
-        </RollingFile>
-        <RollingFile name="auditlogfile" fileName="${sys:cas.log.dir}/cas_audit.log" append="true"
-                     filePattern="${sys:cas.log.dir}/cas_audit-%d{yyyy-MM-dd-HH}-%i.log">
-            <PatternLayout pattern="%d %p [%c] - %m%n"/>
-            <Policies>
-                <OnStartupTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-                <TimeBasedTriggeringPolicy />
-            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="@cas.log.dir@"  >
+                    <IfFileName glob="cas-*.log.gz" />
+                    <IfAny>
+                        <IfAccumulatedFileSize exceeds="50 MB" />
+                        <IfAccumulatedFileCount exceeds="5" />
+                    </IfAny>
+                </Delete>
+            </DefaultRolloverStrategy>
+
         </RollingFile>
 
-        <RollingFile name="perfFileAppender" fileName="${sys:cas.log.dir}/perfStats.log" append="true"
-                     filePattern="${sys:cas.log.dir}/perfStats-%d{yyyy-MM-dd-HH}-%i.log">
+
+        <RollingFile name="auditlogfile" 
+                     fileName="@cas.log.dir@/cas_audit.log" 
+                     append="true"
+                     filePattern="@cas.log.dir@/cas_audit-%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <PatternLayout pattern="%d %p [%c] - %m%n"/>
+            <Policies>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?" />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="@cas.log.dir@"  >
+                    <IfFileName glob="cas_audit-*.log.gz" />
+                    <IfAny>
+                        <IfAccumulatedFileSize exceeds="50 MB" />
+                        <IfAccumulatedFileCount exceeds="5" />
+                    </IfAny>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <RollingFile name="perfFileAppender" 
+                     fileName="@cas.log.dir@/perfStats.log" 
+                     append="true"
+                     filePattern="@cas.log.dir@/perfStats-%d{yyyy-MM-dd-HH}-%i.log.gz">
             <PatternLayout pattern="%m%n"/>
             <Policies>
-                <OnStartupTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB"/>
-                <TimeBasedTriggeringPolicy />
+                <CronTriggeringPolicy schedule="0 0 0 * * ?" />
             </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="@cas.log.dir@"  >
+                    <IfFileName glob="cas_audit-*.log.gz" />
+                    <IfAny>
+                        <IfAccumulatedFileSize exceeds="50 MB" />
+                        <IfAccumulatedFileCount exceeds="5" />
+                    </IfAny>
+                </Delete>
+            </DefaultRolloverStrategy>
+
         </RollingFile>
 
         <CasAppender name="casAudit">
@@ -59,40 +97,49 @@
     <Loggers>
         <!-- If adding a Logger with level set higher than warn, make category as selective as possible -->
         <!-- Loggers inherit appenders from Root Logger unless additivity is false -->
-        <AsyncLogger name="org.apereo" level="${sys:cas.log.level}" includeLocation="true"/>
-        <AsyncLogger name="org.apereo.services.persondir" level="${sys:cas.log.level}" includeLocation="true"/>
-        <AsyncLogger name="org.apereo.cas.web.flow" level="info" includeLocation="true"/>
-        <AsyncLogger name="org.apache" level="warn" />
-        <AsyncLogger name="org.apache.http" level="error" />
-        <AsyncLogger name="org.springframework" level="warn" />
-        <AsyncLogger name="org.springframework.cloud.server" level="warn" />
-        <AsyncLogger name="org.springframework.cloud.client" level="warn" />
-        <AsyncLogger name="org.springframework.cloud.bus" level="warn" />
-        <AsyncLogger name="org.springframework.aop" level="warn" />
-        <AsyncLogger name="org.springframework.boot" level="warn" />
-        <AsyncLogger name="org.springframework.boot.actuate.autoconfigure" level="warn" />
-        <AsyncLogger name="org.springframework.webflow" level="warn" />
-        <AsyncLogger name="org.springframework.session" level="warn" />
-        <AsyncLogger name="org.springframework.amqp" level="error" />
-        <AsyncLogger name="org.springframework.integration" level="warn" />
-        <AsyncLogger name="org.springframework.messaging" level="warn" />
-        <AsyncLogger name="org.springframework.web" level="warn" />
-        <AsyncLogger name="org.springframework.orm.jpa" level="warn" />
-        <AsyncLogger name="org.springframework.scheduling" level="warn" />
+        <AsyncLogger name="org.apereo"                          level="@log4j.cas@"                     includeLocation="true"/>
+        <AsyncLogger name="org.apereo.services.persondir"       level="@log4j.cas.service.persondir@"   includeLocation="true"/>
+        <AsyncLogger name="org.apereo.cas.web.flow"             level="@log4j.cas.webflow@"             includeLocation="true"/>
+        <AsyncLogger name="org.apache"                          level="warn" />
+        <AsyncLogger name="org.apache.http"                     level="error" />
+        <AsyncLogger name="org.apereo.cas.web.support"          level="@log4j.cas.web.support@" />
+
+
+        <AsyncLogger name="org.springframework"                 level="@log4j.spring@" />
+        <AsyncLogger name="org.springframework.cloud.server"    level="warn" />
+        <AsyncLogger name="org.springframework.cloud.client"    level="warn" />
+        <AsyncLogger name="org.springframework.cloud.bus"       level="warn" />
+        <AsyncLogger name="org.springframework.aop"             level="warn" />
+        <AsyncLogger name="org.springframework.boot"            level="warn" />
+        <AsyncLogger name="org.springframework.bind"            level="info" />
+        <AsyncLogger name="org.springframework.boot.actuate.autoconfigure" level="info" />
+        <AsyncLogger name="org.springframework.webflow"         level="@log4j.org.spring.webflow@" />
+        <AsyncLogger name="org.springframework.session"         level="warn" />
+        <AsyncLogger name="org.springframework.amqp"            level="error" />
+        <AsyncLogger name="org.springframework.integration"     level="warn" />
+        <AsyncLogger name="org.springframework.messaging"       level="warn" />
+        <AsyncLogger name="org.springframework.web"             level="warn" />
+        <AsyncLogger name="org.springframework.orm.jpa"         level="warn" />
+        <AsyncLogger name="org.springframework.scheduling"      level="warn" />
         <AsyncLogger name="org.springframework.context.annotation" level="error" />
-        <AsyncLogger name="org.springframework.boot.devtools" level="error" />
-        <AsyncLogger name="org.springframework.web.socket" level="warn" />
-        <AsyncLogger name="org.thymeleaf" level="warn" />
-        <AsyncLogger name="org.pac4j" level="warn" />
-        <AsyncLogger name="org.opensaml" level="warn"/>
-        <AsyncLogger name="net.sf.ehcache" level="warn" />
-        <AsyncLogger name="com.couchbase" level="warn" includeLocation="true"/>
-        <AsyncLogger name="com.ryantenney.metrics" level="warn" />
-        <AsyncLogger name="net.jradius" level="warn" />
-        <AsyncLogger name="org.openid4java" level="warn" />
-        <AsyncLogger name="org.ldaptive" level="warn" />
-        <AsyncLogger name="com.hazelcast" level="warn" />
-        <AsyncLogger name="org.apereo.spring" level="warn" />
+        <AsyncLogger name="org.springframework.boot.devtools"   level="error" />
+        <AsyncLogger name="org.springframework.web.socket"      level="warn" />
+        <AsyncLogger name="org.springframework.jdbc"            level="warn" />
+        <AsyncLogger name="com.zaxxer.hikari.pool"              level="warn" />
+
+        
+
+        <AsyncLogger name="org.thymeleaf"                       level="@log4j.org.thymeleaf@" />
+        <AsyncLogger name="org.pac4j"                           level="warn" />
+        <AsyncLogger name="org.opensaml"                        level="warn"/>
+        <AsyncLogger name="net.sf.ehcache"                      level="warn" />
+        <AsyncLogger name="com.couchbase"                       level="warn" includeLocation="true"/>
+        <AsyncLogger name="com.ryantenney.metrics"              level="warn" />
+        <AsyncLogger name="net.jradius"                         level="warn" />
+        <AsyncLogger name="org.openid4java"                     level="warn" />
+        <AsyncLogger name="org.ldaptive"                        level="warn" />
+        <AsyncLogger name="com.hazelcast"                       level="warn" />
+        <AsyncLogger name="org.apereo.spring"                   level="warn" />
 
         <!-- Log perf stats only to perfStats.log -->
         <AsyncLogger name="perfStatsLogger" level="info" additivity="false" includeLocation="true">
@@ -105,7 +152,7 @@
         </AsyncLogger>
 
         <!-- All Loggers inherit appenders specified here, unless additivity="false" on the Logger -->
-        <AsyncRoot level="warn">
+        <AsyncRoot level="info">
             <AppenderRef ref="casFile"/>
             <!-- 
                  For deployment to an application server running as service, 

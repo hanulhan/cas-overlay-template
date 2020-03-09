@@ -9,6 +9,16 @@
     <version>1.0</version>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+            </resource>
+        </resources>
+        
         <plugins>
             
             <plugin>
@@ -69,6 +79,10 @@
                         <overlay>
                             <groupId>org.apereo.cas</groupId>
                             <artifactId>cas-server-webapp${app.server}</artifactId>
+                            <excludes>
+                                <exclude>log4j2.xml</exclude>
+                                <exclude>/WEB-INF/classes/log4j2.xml</exclude>
+                            </excludes>
                         </overlay>
                     </overlays>
                 </configuration>
@@ -154,8 +168,8 @@
     </build>
 
     <properties>
-        <cas.version>5.2.6</cas.version>
-        <springboot.version>1.5.12.RELEASE</springboot.version>
+        <cas.version>5.3.11</cas.version>
+        <springboot.version>2.1.6.RELEASE</springboot.version>
         <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
         <app.server></app.server>
 
