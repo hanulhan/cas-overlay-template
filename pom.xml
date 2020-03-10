@@ -8,7 +8,46 @@
     <packaging>war</packaging>
     <version>1.0</version>
 
+    <properties>
+        <cas.version>5.3.11</cas.version>
+        <springboot.version>2.1.6.RELEASE</springboot.version>
+        <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
+        <app.server></app.server>
+
+        <cas.dir>${project.build.directory}/etc/cas</cas.dir>
+        <cas.service.definition>Acentic-1503925298.json</cas.service.definition>
+
+        <mainClassName>org.springframework.boot.loader.WarLauncher</mainClassName>
+        <isExecutable>false</isExecutable>
+        <manifestFileToUse>${project.build.directory}/war/work/org.apereo.cas/cas-server-webapp${app.server}/META-INF/MANIFEST.MF</manifestFileToUse>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Default Settings -->
+        <server.addr>cas.acentic.com</server.addr>
+        <acs.addr>acs.acentic.com</acs.addr>        
+        <jdbc.url>jdbc:mysql://acsdb.csbzp1p3p8vb.eu-west-1.rds.amazonaws.com:3306/cloud_admin</jdbc.url>
+        <jdbc.user>acsuser</jdbc.user>
+        <jdbc.pass>prodac</jdbc.pass>
+        <cas.throttle.rangeSeconds>12</cas.throttle.rangeSeconds>
+
+
+        <!-- Logging -->
+        <logging.config>file:/etc/cas/config/log4j2.xml</logging.config>
+        <cas.log.dir>/var/log/tomcat</cas.log.dir>
+        <log4j.cas>info</log4j.cas>
+        <log4j.cas.webflow>info</log4j.cas.webflow>
+        <log4j.cas.service.persondir>info</log4j.cas.service.persondir>
+        <log4j.spring>warn</log4j.spring>
+        <log4j.org.thymeleaf>warn</log4j.org.thymeleaf>
+        <log4j.org.spring.webflow>warn</log4j.org.spring.webflow>
+        <log4j.cas.web.support>warn</log4j.cas.web.support>
+    </properties>
+
     <build>
+        <finalName>cas</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -18,7 +57,6 @@
                 <directory>src/main/webapp</directory>
             </resource>
         </resources>
-        
         <plugins>
             
             <plugin>
@@ -39,7 +77,7 @@
             <plugin>
                 <groupId>com.rimerosolutions.maven.plugins</groupId>
                 <artifactId>wrapper-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <version>0.0.5</version>
                 <configuration>
                     <verifyDownload>true</verifyDownload>
                     <checksumAlgorithm>MD5</checksumAlgorithm>
@@ -92,7 +130,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -163,48 +201,12 @@
 
                 </executions>                    
             </plugin>
+
         </plugins>
-        <finalName>cas</finalName>
+
     </build>
 
-    <properties>
-        <cas.version>5.3.11</cas.version>
-        <springboot.version>2.1.6.RELEASE</springboot.version>
-        <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
-        <app.server></app.server>
 
-        <cas.dir>${project.build.directory}/etc/cas</cas.dir>
-        <cas.service.definition>Acentic-1503925298.json</cas.service.definition>
-
-
-        <mainClassName>org.springframework.boot.loader.WarLauncher</mainClassName>
-        <isExecutable>false</isExecutable>
-        <manifestFileToUse>${project.build.directory}/war/work/org.apereo.cas/cas-server-webapp${app.server}/META-INF/MANIFEST.MF</manifestFileToUse>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
-        <!-- Default Settings -->
-        <server.addr>cas.acentic.com</server.addr>
-        <acs.addr>acs.acentic.com</acs.addr>        
-        <jdbc.url>jdbc:mysql://acsdb.csbzp1p3p8vb.eu-west-1.rds.amazonaws.com:3306/cloud_admin</jdbc.url>
-        <jdbc.user>acsuser</jdbc.user>
-        <jdbc.pass>prodac</jdbc.pass>
-        <cas.throttle.rangeSeconds>12</cas.throttle.rangeSeconds>
-
-
-        <!-- Logging -->
-        <logging.config>file:/etc/cas/config/log4j2.xml</logging.config>
-        <cas.log.dir>/var/log/tomcat</cas.log.dir>
-        <log4j.cas>info</log4j.cas>
-        <log4j.cas.webflow>info</log4j.cas.webflow>
-        <log4j.cas.service.persondir>info</log4j.cas.service.persondir>
-        <log4j.spring>warn</log4j.spring>
-        <log4j.org.thymeleaf>warn</log4j.org.thymeleaf>
-        <log4j.org.spring.webflow>warn</log4j.org.spring.webflow>
-        <log4j.cas.web.support>warn</log4j.cas.web.support>
-    </properties>
 
     <repositories>
         <repository>
@@ -480,5 +482,6 @@
             </properties>
 
         </profile>
+
     </profiles>
 </project>
