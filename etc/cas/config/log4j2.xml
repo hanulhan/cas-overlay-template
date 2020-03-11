@@ -103,6 +103,7 @@
         <AsyncLogger name="org.apache"                          level="warn" />
         <AsyncLogger name="org.apache.http"                     level="error" />
         <AsyncLogger name="org.apereo.cas.web.support"          level="@log4j.cas.web.support@" />
+        <AsyncLogger name="org.apereo.cas.authentification"     level="debug" />
 
 
         <AsyncLogger name="org.springframework"                 level="@log4j.spring@" />
@@ -124,8 +125,8 @@
         <AsyncLogger name="org.springframework.context.annotation" level="error" />
         <AsyncLogger name="org.springframework.boot.devtools"   level="error" />
         <AsyncLogger name="org.springframework.web.socket"      level="warn" />
-        <AsyncLogger name="org.springframework.jdbc"            level="warn" />
-        <AsyncLogger name="com.zaxxer.hikari.pool"              level="warn" />
+        <AsyncLogger name="org.springframework.jdbc"            level="debug" />
+        <AsyncLogger name="com.zaxxer.hikari"                   level="debug" />
 
         
 
