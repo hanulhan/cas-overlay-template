@@ -444,6 +444,36 @@
 
         </profile>
         <profile>
+            <id>Docker</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!--    -->
+                <server.addr>cas-docker.hanulhan.org</server.addr>
+                <acs.addr>ToBeDefined</acs.addr>
+                <cas.dir>/etc/cas</cas.dir>
+                <cas.service.definition>dev-1503925298.json</cas.service.definition>
+
+                <!-- JDBC   -->
+                <jdbc.url>jdbc:mysql://db:3306/cloud_admin</jdbc.url>
+                <jdbc.user>root</jdbc.user>
+                <jdbc.pass>prodac</jdbc.pass>
+
+                <!-- LOGGING -->
+                <cas.log.dir>${project.build.directory}/logs</cas.log.dir>
+                <log4j.cas>debug</log4j.cas>
+                <log4j.cas.service.persondir>debug</log4j.cas.service.persondir>
+
+
+                <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
+                <keystore.file>de-ws-16.p12</keystore.file>
+                <keystore.pass>acentic</keystore.pass>
+
+            </properties>
+
+        </profile>
+        <profile>
             <id>dev@hellboy</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
