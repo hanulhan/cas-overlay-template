@@ -449,10 +449,11 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
+                <cas.dir>${project.build.directory}/etc/cas</cas.dir>
+                
                 <!--    -->
                 <server.addr>cas-docker.hanulhan.org</server.addr>
                 <acs.addr>ToBeDefined</acs.addr>
-                <cas.dir>/etc/cas</cas.dir>
                 <cas.service.definition>dev-1503925298.json</cas.service.definition>
 
                 <!-- JDBC   -->
