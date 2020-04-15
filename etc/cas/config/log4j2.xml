@@ -104,7 +104,7 @@
         <AsyncLogger name="org.apache.http"                     level="error" />
         <AsyncLogger name="org.apereo.cas.web.support"          level="@log4j.cas.web.support@" />
         <AsyncLogger name="org.apereo.cas.authentification"     level="debug" />
-
+        <AsyncLogger name="org.apereo.cas.web.view.attributes"  level="DEBUG" />
 
         <AsyncLogger name="org.springframework"                 level="@log4j.spring@" />
         <AsyncLogger name="org.springframework.cloud.server"    level="warn" />

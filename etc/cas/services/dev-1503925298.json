@@ -4,5 +4,8 @@
     "name"            : "Acentic dev service",
     "description"     : "Acentic service registry for development",
     "id"              : 1503925298,
-    "evaluationOrder" : 9999
+    "evaluationOrder" : 9999,
+    "attributeReleasePolicy" : {
+       "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+    }
 }

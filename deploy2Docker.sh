@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-WEBAPP=cas.war
+WEBAPP=CasServer.war
 CONTAINER=cas6
 DOCKER_DIR=/opt/docker/CAS/$CONTAINER
 PROJECT_DIR=$PWD
@@ -25,8 +25,12 @@ then
 	if [ `ls -a "tomcat/cas/logs" | wc -l` -gt 2 ];then
 	   rm $DOCKER_DIR/tomcat/cas/logs/*
 	fi
+	if [ `ls -a "tomcat/acs/logs" | wc -l` -gt 2 ];then
+	   rm $DOCKER_DIR/tomcat/acs/logs/*
+	fi
+	
 
-	# Delete config in etc/cas
+        # Delete config in etc/cas
 	if [ -d $DOCKER_DIR/tomcat/cas/etc/cas/ ];
 	then
 	   rm -fr $DOCKER_DIR/tomcat/cas/etc/cas/*

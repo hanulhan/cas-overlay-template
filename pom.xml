@@ -9,7 +9,7 @@
     <version>1.0</version>
 
     <properties>
-<!--        <cas.version>5.3.11</cas.version>-->
+        <!--        <cas.version>5.3.11</cas.version>-->
         <cas.version>6.2.0-RC3</cas.version>
 
         <springboot.version>2.1.6.RELEASE</springboot.version>
@@ -315,6 +315,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <id>default</id>
+            <properties>
+                <cas.dir>/etc/cas</cas.dir>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apereo.cas</groupId>
@@ -338,6 +341,7 @@
                 <mainClassName>org.apereo.cas.web.CasWebApplication</mainClassName>
                 <isExecutable>true</isExecutable>
                 <manifestFileToUse></manifestFileToUse>
+                <cas.dir>/etc/cas</cas.dir>
             </properties>
             <build>
                 <plugins>
@@ -388,6 +392,9 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <id>pgp</id>
+            <properties>
+                <cas.dir>/etc/cas</cas.dir>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -452,8 +459,8 @@
                 <cas.dir>${project.build.directory}/etc/cas</cas.dir>
                 
                 <!--    -->
-                <server.addr>cas-docker.hanulhan.org</server.addr>
-                <acs.addr>ToBeDefined</acs.addr>
+                <server.addr>cas-docker.acentic.com</server.addr>
+                <acs.addr>acs-docker.acentic.com</acs.addr>
                 <cas.service.definition>dev-1503925298.json</cas.service.definition>
 
                 <!-- JDBC   -->
@@ -462,7 +469,7 @@
                 <jdbc.pass>prodac</jdbc.pass>
 
                 <!-- LOGGING -->
-                <cas.log.dir>${project.build.directory}/logs</cas.log.dir>
+                <cas.log.dir>/usr/local/tomcat/logs</cas.log.dir>
                 <log4j.cas>debug</log4j.cas>
                 <log4j.cas.service.persondir>debug</log4j.cas.service.persondir>
 
@@ -481,7 +488,7 @@
             </activation>
             <properties>
                 <!--    -->
-                <server.addr>192.168.178.137:8443</server.addr>
+                <server.addr>localhost</server.addr>
                 <acs.addr>ToBeDefined</acs.addr>
                 <cas.dir>/etc/cas</cas.dir>
                 <cas.service.definition>dev-1503925298.json</cas.service.definition>
@@ -495,11 +502,14 @@
                 <!-- LOGGING -->
                 <cas.log.dir>${project.build.directory}/logs</cas.log.dir>
                 <log4j.cas>DEBUG</log4j.cas>
-                <log4j.cas.web.support>trace</log4j.cas.web.support>
-                <log4j.cas.webflow>debug</log4j.cas.webflow>
-                <log4j.cas.service.persondir>debug</log4j.cas.service.persondir>
-                <log4j.org.thymeleaf>debug</log4j.org.thymeleaf>
-                <log4j.org.spring.webflow>debug</log4j.org.spring.webflow>
+                <log4j.cas.service.persondir>INFO</log4j.cas.service.persondir>
+                <log4j.cas.webflow>INFO</log4j.cas.webflow>
+                <log4j.cas.web.support>INFO</log4j.cas.web.support>
+                
+
+
+                <log4j.org.thymeleaf>INFO</log4j.org.thymeleaf>
+                <log4j.org.spring.webflow>INFO</log4j.org.spring.webflow>
 
                 <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
                 <keystore.file>de-ws-16.p12</keystore.file>
