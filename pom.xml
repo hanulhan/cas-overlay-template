@@ -10,9 +10,10 @@
 
     <properties>
         <cas.version>5.3.11</cas.version>
+
         <springboot.version>2.1.6.RELEASE</springboot.version>
         <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
-        <app.server></app.server>
+        <app.server>-tomcat</app.server>
 
         <cas.dir>${project.build.directory}/etc/cas</cas.dir>
         <cas.service.definition>Acentic-1503925298.json</cas.service.definition>
@@ -21,8 +22,10 @@
         <isExecutable>false</isExecutable>
         <manifestFileToUse>${project.build.directory}/war/work/org.apereo.cas/cas-server-webapp${app.server}/META-INF/MANIFEST.MF</manifestFileToUse>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Default Settings -->
@@ -67,7 +70,21 @@
                         <fileset>
                             <directory>/etc/cas</directory>
                             <includes>
-                                <include>**/*.*</include>
+                                <include>*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>/etc/cas/config</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>/etc/cas/services</directory>
+                            <includes>
+                                <include>**</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
@@ -181,7 +198,7 @@
                         <id>deploy-keystore</id>
                         <!-- Copy keystore for spring boot to ${basedir}/etc/cas
                         -->
-                        <phase>package</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -412,7 +429,7 @@
 
 
                 <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
-                <keystore.file>de-ws-16.p12</keystore.file>
+                <keystore.file>hellboy.p12</keystore.file>
                 <keystore.pass>acentic</keystore.pass>
 
             </properties>
@@ -446,7 +463,7 @@
                 <log4j.org.spring.webflow>debug</log4j.org.spring.webflow>
 
                 <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
-                <keystore.file>de-ws-16.p12</keystore.file>
+                <keystore.file>hellboy.p12</keystore.file>
                 <keystore.pass>prodac</keystore.pass>
 
             </properties>

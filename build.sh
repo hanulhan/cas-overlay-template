@@ -1,5 +1,5 @@
 #!/bin/bash
-
+JAVA=/usr/lib/jvm/java-8-openjdk-amd64/bin/java 
 
 function copy() {
 	echo -e "Creating configuration directory under /etc/cas"
@@ -30,8 +30,8 @@ function clean() {
 }
 
 function package() {
-    shift
-	./mvnw clean package -T 5 "$@"
+    echo "package(params: $@)"
+    ./mvnw clean package -T 5 "$@"
 	# copy
 }
 
@@ -41,11 +41,11 @@ function bootrun() {
 }
 
 function debug() {
-	package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5000,server=y,suspend=n -jar target/cas.war
+	package  && $JAVA -Xdebug -Xrunjdwp:transport=dt_socket,address=5000,server=y,suspend=n -jar target/cas.war
 }
 
 function run() {
-	package && java -jar target/cas.war
+	$JAVA -jar target/cas.war
 }
 
 function runalone() {
@@ -123,7 +123,7 @@ function cli() {
 	# echo "Local JAR file path: $JAR_FILE_LOCAL";
 	if [ -f "$JAR_FILE_LOCAL" ]; then
 		# echo "Using JAR file locally at $JAR_FILE_LOCAL"
-		java -jar $JAR_FILE_LOCAL "$@"
+		$JAVA -jar $JAR_FILE_LOCAL "$@"
 		exit 0;
 	fi
 
@@ -134,7 +134,7 @@ function cli() {
 		./mvnw org.apache.maven.plugins:maven-dependency-plugin:3.0.2:get -DgroupId=org.apereo.cas -DartifactId=cas-server-support-shell -Dversion=$CAS_VERSION -Dpackaging=jar -DartifactItem.outputDirectory=$DOWNLOAD_DIR -DremoteRepositories=central::default::http://repo1.maven.apache.org/maven2,snapshots::::https://oss.sonatype.org/content/repositories/snapshots -Dtransitive=false
 		./mvnw org.apache.maven.plugins:maven-dependency-plugin:3.0.2:copy -Dmdep.useBaseVersion=true -Dartifact=org.apereo.cas:cas-server-support-shell:$CAS_VERSION:jar -DoutputDirectory=$DOWNLOAD_DIR
 	fi
-	java -jar $COMMAND_FILE "$@"
+	$JAVA -jar $COMMAND_FILE "$@"
 	exit 0;
 
 }
