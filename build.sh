@@ -41,18 +41,18 @@ function bootrun() {
 }
 
 function debug() {
-	package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5000,server=y,suspend=n -jar target/cas.war
+	package && java -Xdebug -Xrunjdwp:transport=dt_socket,address=5000,server=y,suspend=n -jar target/CasServer.war
 }
 
 function run() {
-	package && java -jar target/cas.war
+	package && java -jar target/CasServer.war
 }
 
 function runalone() {
 	shift
    ./mvnw clean package -P default,exec  "$@"
-    chmod +x target/cas.war
-   target/cas.war
+    chmod +x target/CasServer.war
+   target/CasServer.war
 }
 
 function listviews() {
