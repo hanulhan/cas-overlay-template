@@ -14,8 +14,13 @@
 
         <springboot.version>2.1.6.RELEASE</springboot.version>
         <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
+        <!--        <app.server>-tomcat</app.server>-->
         <app.server></app.server>
 
+        <!-- To deploy cas to a server, the config dir is in the target folder.
+             It will be merged to a compressed tar with the war file for deploy 
+             process
+        -->
         <cas.dir>${project.build.directory}/etc/cas</cas.dir>
         <cas.service.definition>Acentic-1503925298.json</cas.service.definition>
 
@@ -29,7 +34,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <!-- Default Settings -->
         <server.addr>cas.acentic.com</server.addr>
         <acs.addr>acs.acentic.com</acs.addr>        
@@ -49,9 +54,11 @@
         <log4j.org.thymeleaf>warn</log4j.org.thymeleaf>
         <log4j.org.spring.webflow>warn</log4j.org.spring.webflow>
         <log4j.cas.web.support>warn</log4j.cas.web.support>
+
     </properties>
 
     <build>
+        <finalName>CasServer</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -145,7 +152,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -216,8 +223,8 @@
 
                 </executions>                    
             </plugin>
+
         </plugins>
-        <finalName>CasServer</finalName>
     </build>
 
 
@@ -310,6 +317,44 @@
     </dependencies>
 
     <profiles>
+
+        <profile>
+            <id>dev@hellboy</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!--    -->
+                <server.addr>localhost</server.addr>
+                <acs.addr>ToBeDefined</acs.addr>
+                <cas.dir>/etc/cas</cas.dir>
+                <cas.service.definition>dev-1503925298.json</cas.service.definition>
+                <cas.throttle.rangeSeconds>25</cas.throttle.rangeSeconds>
+
+                <!-- JDBC   -->
+                <jdbc.url>jdbc:mysql://localhost:3306/cloud_admin</jdbc.url>
+                <jdbc.user>root</jdbc.user>
+                <jdbc.pass>prodac</jdbc.pass>
+
+                <!-- LOGGING -->
+                <cas.log.dir>${project.build.directory}/logs</cas.log.dir>
+                <log4j.cas>DEBUG</log4j.cas>
+                <log4j.cas.service.persondir>INFO</log4j.cas.service.persondir>
+                <log4j.cas.webflow>INFO</log4j.cas.webflow>
+                <log4j.cas.web.support>INFO</log4j.cas.web.support>
+                
+
+
+                <log4j.org.thymeleaf>INFO</log4j.org.thymeleaf>
+                <log4j.org.spring.webflow>INFO</log4j.org.spring.webflow>
+
+                <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
+                <keystore.file>de-ws-16.p12</keystore.file>
+                <keystore.pass>prodac</keystore.pass>
+
+            </properties>
+
+        </profile>
         <profile>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -481,43 +526,7 @@
             </properties>
 
         </profile>
-        <profile>
-            <id>dev@hellboy</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <!--    -->
-                <server.addr>localhost</server.addr>
-                <acs.addr>ToBeDefined</acs.addr>
-                <cas.dir>/etc/cas</cas.dir>
-                <cas.service.definition>dev-1503925298.json</cas.service.definition>
-                <cas.throttle.rangeSeconds>25</cas.throttle.rangeSeconds>
 
-                <!-- JDBC   -->
-                <jdbc.url>jdbc:mysql://localhost:3306/cloud_admin</jdbc.url>
-                <jdbc.user>root</jdbc.user>
-                <jdbc.pass>prodac</jdbc.pass>
-
-                <!-- LOGGING -->
-                <cas.log.dir>${project.build.directory}/logs</cas.log.dir>
-                <log4j.cas>DEBUG</log4j.cas>
-                <log4j.cas.service.persondir>INFO</log4j.cas.service.persondir>
-                <log4j.cas.webflow>INFO</log4j.cas.webflow>
-                <log4j.cas.web.support>INFO</log4j.cas.web.support>
-                
-
-
-                <log4j.org.thymeleaf>INFO</log4j.org.thymeleaf>
-                <log4j.org.spring.webflow>INFO</log4j.org.spring.webflow>
-
-                <!-- KEYSTORE for Spring-Boot embedded Tomcat -->
-                <keystore.file>de-ws-16.p12</keystore.file>
-                <keystore.pass>prodac</keystore.pass>
-
-            </properties>
-
-        </profile>
         <profile>
             <id>hobbit</id>
             <activation>

@@ -20,11 +20,11 @@
             <input type="hidden" name="lt" th:value="${loginTicket}" />
             <input type="hidden" name="_eventId" value="submit" />
 
-            <input id="username" name="username" type="text"
+            <input id="username" name="username" type="text" autocomplete="username"
                 th:attr="placeholder=#{screen.login.username}"
                 class="form-control" aria-label="username" tabindex="1" required />
 
-            <input id="password" name="password" type="password"
+            <input id="password" name="password" type="password" autocomplete="current-password"
                 th:attr="placeholder=#{screen.login.password}"
                 class="form-control" aria-label="password" tabindex="2" required />
         
